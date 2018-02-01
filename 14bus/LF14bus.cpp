@@ -2,6 +2,8 @@
 
 int main()
 {
+	struct timeval start,end;
+	float et;
 	int *fb = new int[linefile];
 	int *tb = new int[linefile];
 	double *R = new double[linefile];
@@ -409,10 +411,11 @@ initializevector(X1,22);
 
 // Conjugate Gradient Method
 
-
+gettimeofday(&start,NULL);
 cg(X1, M, J, busvoltage,busangle,type_bus);
-
-
+gettimeofday(&end,NULL);
+et=((end.tv_sec*1e6+end.tv_usec)-(start.tv_sec*1e6+start.tv_usec))/1000;
+cout<<"The elapsed time for CG is "<<et<<" ms"<<endl;
 for(int i=0;i<num_buses-1;i++)
 {
 	dth[i] = X1[i];
